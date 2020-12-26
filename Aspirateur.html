@@ -1,0 +1,216 @@
+<html>
+
+<head>
+<script type="text/javascript">
+
+function Aspirateur(){
+
+var a=parseInt(window.document.getElementById('DX').value);
+
+var b=parseInt(window.document.getElementById('DY').value);
+
+var c=parseInt(window.document.getElementById('PX').value);
+
+var d=parseInt(window.document.getElementById('PY').value);
+
+var or=window.document.getElementById('orientation').value;
+
+var instruction=window.document.getElementById('instr').value;
+ 
+ // définition de tableau:
+ var aspirateur=new Array(a);   
+ var order;  
+ var aa=or;
+  for(i=0;i<aspirateur.length;i++)
+ {
+   aspirateur[i]=new Array(b);
+ }
+  
+  //position initial:
+ for(i=0;i<aspirateur.length;i++)
+ {
+     for(j=0;j<aspirateur[i].length;j++)
+    {
+          if(i==c&&j==d)
+            {
+              aspirateur[i][j]='Aspirateur';
+              
+            }
+    }
+ }
+   //les instruction:
+    order=Array.from(instruction);
+  
+  
+  for(let i=0;i<order.length;i++){
+    switch(order[i]){
+case order[i]='D':
+if(aa=='N'){
+
+  aa='E';
+break;
+}
+if( aa=='E'){
+
+  aa='S';
+break;
+}
+if( aa=='S'){
+
+  aa='W';
+break;
+} 
+if( aa=='W'){
+
+  aa='N';
+break;
+}
+    break;
+case order[i]='G':
+if(aa=='N'){
+
+  aa='W';
+break;
+}
+if( aa=='W'){
+
+  aa='S';
+break;
+}
+if( aa=='S'){
+
+  aa='E';
+break;
+} 
+if( aa=='E'){
+
+  aa='N';
+break;
+}
+break;    
+case order[i]='A':
+if(aa=='N'){
+    for(let k=0;k<aspirateur.length;k++){
+      for(let f=0;f<aspirateur.length;f++){
+              if(k==c&&f==d){
+
+
+                    aspirateur[k-1][f]=aspirateur[k][f];
+                    aspirateur[k][f]="";
+              }
+
+      }
+
+
+      }
+
+
+}
+if( aa=='W'){
+  for(let k=0;k<aspirateur.length;k++){
+      for(let f=0;f<aspirateur.length;f++){
+              if(k==c&&f==d){
+
+
+                    aspirateur[k][f-1]=aspirateur[k][f];
+                    aspirateur[k][f]="";     
+              }
+
+      }
+
+
+      }
+
+}
+if( aa=='S'){
+  for(let k=0;k<aspirateur.length;k++){
+      for(let f=0;f<aspirateur.length;f++){
+              if(k==c&&f==d){
+
+                    
+                    aspirateur[k+1][f]=aspirateur[k][f];
+                    aspirateur[k][f]="";
+                    
+                    }
+
+      }
+
+
+    }
+
+ }
+if( aa=='E'){
+
+  for(let k=0;k<aspirateur.length;k++){
+      for(let f=0;f<aspirateur.length;f++){
+              if(k==c&&f==d){
+
+
+                    aspirateur[k][f+1]=aspirateur[k][f];
+                    aspirateur[k][f]="";
+                     break;
+              }
+      }
+      }
+     
+}
+break;    
+}  
+
+ } 
+//Affichage
+        var resultat;
+         for(i=0;i<aspirateur.length;i++)
+         {
+          for(j=0;j<aspirateur[i].length;j++)
+          {
+          if(aspirateur[i][j]=='Aspirateur'){
+
+            resultat ="X:"+i+" ,Y:"+j;
+
+               }
+      
+      }
+  }
+          
+    
+       document.getElementById('res').innerHTML="orientation :"+aa+" "+ resultat;
+
+    }
+   
+   
+
+
+
+</script>
+
+
+</head>
+
+<body>
+
+<label>dimension:</label></br>
+   <input type="number" id="DX"/></br>
+   <input type="number" id="DY"/> </br>
+   <label>position initial:</label></br>
+   <input type="number" id="PX"/></br>
+   <input type="number" id="PY"/> </br>
+   <label>orientaion:</label></br>
+   <select id="orientation">
+   <option>N</option>
+   <option>S</option>
+   <option>W</option>
+   <option>E</option>
+
+   </select></br>
+   
+   <label>instruction:</label></br>
+   <input type="text" id="instr"/></br></br>
+
+   <input type="submit" onclick="Aspirateur()"/></br></br>
+
+   <label id="res"></label>
+
+</body>
+
+</html>
